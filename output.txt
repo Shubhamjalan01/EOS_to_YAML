@@ -1,7 +1,24 @@
 access_lists:
   test1:
-    counters_per_entry: 'true'
+    counters_per_entry: <true | false>
+    sequence_numbers:
+      '10':
+        action: permit ip 10.10.10.0/24 host 10.20.10.1
+access_lists:
+  test1:
+    counters_per_entry: <true | false>
+    sequence_numbers:
+      '20':
+        action: permit ip 10.10.10.0/24 host 10.20.10.1
+access_lists:
+  test1:
+    counters_per_entry: <true | false>
+    sequence_numbers:
+      '30':
+        action: permit ip 10.10.10.0/24 host 10.20.10.1
+access_lists:
+  test1:
+    counters_per_entry: <true | false>
     sequence_numbers:
       '40':
         action: permit ip 10.10.10.0/24 host 10.20.10.1
-
