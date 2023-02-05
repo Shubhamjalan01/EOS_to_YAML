@@ -16,15 +16,20 @@ act3 = []
 for s in act1:
     act3.append(s.replace("\n", " "))
 print(act3)
-f = open('output.txt', mode='w')
-for x in seq:
-    data['access_lists'] = {'test1': {
+data['access_lists'] = {'test1': {
             'counters_per_entry': 'true',
             'sequence_numbers': {
-                x: {
-                    'action': act3[0]
+                seq[0]: {
+                    'action': 'action_description'
                 }
             }
         }
     }
-    yaml.dump(data, f, indent=2)
+
+for (x,y) in zip(seq,act3):
+    data['access_lists']['test1']['sequence_numbers'][x] =  {
+                    'action': y
+    }
+
+f = open('output.txt', mode='w')
+yaml.dump(data, f, indent=2)
