@@ -40,3 +40,4 @@ if "Access List" in type:
 
 f = open('output.txt', mode='w')
 yaml.dump(data, f, indent=2)
+f.close()
