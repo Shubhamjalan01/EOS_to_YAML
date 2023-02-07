@@ -3,10 +3,21 @@ access_lists:
     counters_per_entry: 'true'
     sequence_numbers:
       '10':
-        action: 'permit ip 10.10.10.0/24 any '
+        action: permit ip 10.10.10.0/24 any
       '20':
-        action: 'permit ip 10.30.10.0/24 host 10.20.10.1 '
+        action: permit ip 10.30.10.0/24 host 10.20.10.1
       '30':
-        action: 'deny ip host 10.10.10.1 host 10.20.10.1 '
+        action: deny ip host 10.10.10.1 host 10.20.10.1
       '40':
-        action: 'permit ip any any '
+        action: permit ip any any
+  test2:
+    counters_per_entry: 'true'
+    sequence_numbers:
+      '10':
+        action: permit ip 10.10.10.0/24 any
+      '15':
+        action: deny ip host 10.10.10.1 host 10.20.10.1
+      '20':
+        action: permit ip 10.30.10.0/24 host 10.20.10.2
+      '30':
+        action: permit ip any any
