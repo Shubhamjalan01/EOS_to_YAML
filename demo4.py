@@ -25,7 +25,7 @@ with open ('input.txt', 'rt') as myfile:
             if len(alnames)>1:
                 #res.update(temp['access_lists'])
                 #merge new access list to the existing access list
-                res['access_lists'] = res['access_lists']|temp['access_lists']
+                res['access_lists'].update(temp['access_lists'])
             else:
                 res.update(temp)
             print(res)
