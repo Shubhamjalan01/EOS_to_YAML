@@ -1,3 +1,3 @@
 # EOS_to_YAML
- task1: 
-  access list
+task1: access list
+\tInput:
