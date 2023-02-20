@@ -9,7 +9,7 @@ IP Access List test1
   20 permit ip 10.30.10.0/24 host 10.20.10.1
 </pre>  
 ### Expected output:
-YAML:    
+YAML:
 <pre>
 access_lists:
   test1:
