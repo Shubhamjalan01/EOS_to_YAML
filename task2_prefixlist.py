@@ -3,7 +3,7 @@ import yaml
 res = {}    
 plnames = []  
 #iterate over every line in the input file                      
-with open ('input.txt', 'rt') as myfile: 
+with open ('inputp.txt', 'rt') as myfile: 
     for myline in myfile:
         #create a empty temporary dict.
         temp = {}
@@ -40,6 +40,6 @@ with open ('input.txt', 'rt') as myfile:
                 
    
 # write dictionary to file converting into yaml format
-with open('output.txt', mode='w') as f:
+with open('outputp.txt', mode='w') as f:
     yaml.dump(res, f, indent=2)
 f.close()
