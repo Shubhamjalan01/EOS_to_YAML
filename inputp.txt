@@ -1,0 +1,5 @@
+ip prefix-list PREFIX-A2ACG-DEFAULT-IN seq 5 permit 0.0.0.0/0
+ip prefix-list PREFIX-A2ACG-DEFAULT-IN seq 15 permit 1.2.3.4/32
+ip prefix-list PREFIX-MLAG-SUBNET seq 10 permit 1.1.1.0/30
+ip prefix-list PREFIX-PROJECT-DEFAULT-IN seq 5 permit 0.0.0.0/0
+ip prefix-list PREFIX-VDI-CITRIX-DEFAULT-IN seq 5 permit 0.0.0.0/0
