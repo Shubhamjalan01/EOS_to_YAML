@@ -1,8 +1,0 @@
-route-map MAP_2 permit 10
-    match as 10
-    set local-preference 100
-!
-route-map MAP_2 deny 20
-    match metric-type type-1
-    match as 100
-!
