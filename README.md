@@ -1,4 +1,13 @@
 # EOS_to_YAML
+### Running the Scripts
+<pre>
+# Clone the repo
+git clone 
+
+# Import Yaml library
+
+# Run the Python script
+</pre>
 ## Task1: Access lists
 ### Input:
 EOS Configuration:  
