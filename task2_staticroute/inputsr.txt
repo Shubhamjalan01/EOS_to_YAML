@@ -1,0 +1,7 @@
+ip route vrf A2ACG 10.36.212.0/23 10.36.200.36
+ip route vrf A2ACG 10.36.8.64/26 10.36.200.36
+ip route vrf A2ACG 10.36.18.128/25 10.36.200.36
+ip route vrf A2ACG 10.36.214.0/24 10.36.200.37
+ip route vrf A2ACG 10.36.26.128/25 10.36.200.37
+ip route 10.36.128.38/32 10.36.200.38
+ip route vrf XYZ 10.36.0.41/32 10.36.3.197

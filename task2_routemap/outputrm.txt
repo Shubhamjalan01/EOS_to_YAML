@@ -1,0 +1,16 @@
+route_maps:
+  MAP_2:
+    sequence_numbers:
+      '10':
+        Type: permit
+        match:
+        - match as 10
+        set:
+        - set local-preference 100
+  MAP_3:
+    sequence_numbers:
+      '20':
+        Type: deny
+        match:
+        - match metric-type type-1
+        - match as 100
