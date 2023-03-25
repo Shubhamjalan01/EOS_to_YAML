@@ -2,7 +2,7 @@
 ### Running the Scripts
 <pre>
 # Clone the repo
-git clone 
+git clone https://github.com/Shubhamjalan01/EOS_to_YAML.git
 
 # Import Yaml library
 
