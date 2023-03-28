@@ -1,0 +1,26 @@
+interface Port-Channel42
+description US-BIL-DC-PHY-CV-1 Cluster_Bridge
+switchport access vlan 1011
+mlag 42
+!
+interface Port-Channel44
+description US-BIL-DC-PHY-CV-2 Cluster_Bridge
+switchport access vlan 1011
+mlag 44
+!
+interface Port-Channel1000
+description MLAG Peer Link
+switchport mode trunk
+switchport trunk group mlag-peer
+!
+interface Port-Channel1001
+description Uplink to Spine-1
+mtu 9214
+no switchport
+ip address 10.195.57.124/31
+!
+interface Port-Channel1002
+description Uplink to Spine-2
+mtu 9214
+no switchport
+ip address 10.195.57.252/31

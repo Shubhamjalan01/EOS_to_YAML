@@ -1,0 +1,28 @@
+port_channel_interfaces:
+  Port-Channel1000:
+    Description: MLAG Peer Link
+    Mode: trunk
+    Trunk_groups: mlag-peer
+    Type: switched
+  Port-Channel1001:
+    Description: Uplink to Spine-1
+    Mtu: '9214'
+    Type: routed
+    ip_address: 10.195.57.124/31
+  Port-Channel1002:
+    Description: Uplink to Spine-2
+    Mtu: '9214'
+    Type: routed
+    ip_address: 10.195.57.252/31
+  Port-Channel42:
+    Description: US-BIL-DC-PHY-CV-1 Cluster_Bridge
+    Mlag: '42'
+    Mode: access
+    Type: switched
+    vlan_id: '1011'
+  Port-Channel44:
+    Description: US-BIL-DC-PHY-CV-2 Cluster_Bridge
+    Mlag: '44'
+    Mode: access
+    Type: switched
+    vlan_id: '1011'
