@@ -4,7 +4,7 @@
 # Clone the repo
 git clone https://github.com/Shubhamjalan01/EOS_to_YAML.git
 
-# Import Yaml library
+# Import Yaml library in python scripts
 
 # Run the Python script
 </pre>
