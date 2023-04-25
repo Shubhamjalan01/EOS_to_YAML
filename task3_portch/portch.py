@@ -53,29 +53,30 @@ with open ('input.txt', 'rt') as myfile:
         elif "switchport" in myline:
             if 'access' in myline:
                 line = myline.split()
-                res['port_channel_interfaces'][pci[-1]]['Mode'] = 'access'
+                res['port_channel_interfaces'][pci[-1]]['mode'] = 'access'
                 res['port_channel_interfaces'][pci[-1]]['vlan_id'] = line[-1]
-                res['port_channel_interfaces'][pci[-1]]['Type'] = 'switched'
+                res['port_channel_interfaces'][pci[-1]]['type'] = 'switched'
                 print(res)
-            elif 'mode trunk' in myline:
-                res['port_channel_interfaces'][pci[-1]]['Mode'] = 'trunk'
-                res['port_channel_interfaces'][pci[-1]]['Type'] = 'switched'
+            elif 'mode' in myline:
+                line = myline.split()
+                res['port_channel_interfaces'][pci[-1]]['mode'] = line[2]
+                res['port_channel_interfaces'][pci[-1]]['type'] = 'switched'
                 print(res)
             elif 'group' in myline:
                 line = myline.split()
-                res['port_channel_interfaces'][pci[-1]]['Trunk_groups'] = line[-1]
+                res['port_channel_interfaces'][pci[-1]]['trunk_groups'] = line[-1]
             elif "no switchport" in myline:
-                res['port_channel_interfaces'][pci[-1]]['Type'] = 'routed'
+                res['port_channel_interfaces'][pci[-1]]['type'] = 'routed'
         elif "no switchport" in myline:
-            res['port_channel_interfaces'][pci[-1]]['Type'] = 'routed'
+            res['port_channel_interfaces'][pci[-1]]['type'] = 'routed'
         elif "mlag" in myline:
             line = myline.split()
             print(line)
-            res['port_channel_interfaces'][pci[-1]]['Mlag'] = line[1]
+            res['port_channel_interfaces'][pci[-1]]['mlag'] = line[1]
         elif "mtu" in myline:
             line = myline.split()
             print(line)
-            res['port_channel_interfaces'][pci[-1]]['Mtu'] = line[1]
+            res['port_channel_interfaces'][pci[-1]]['mtu'] = line[1]
         elif "ip address" in myline:
             line = myline.split()
             res['port_channel_interfaces'][pci[-1]]['ip_address'] = line[-1]

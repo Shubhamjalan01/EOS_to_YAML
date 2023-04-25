@@ -1,4 +1,6 @@
 Vlan 50
 name test
+!
 Vlan 100
-name test23
+name test3
+!

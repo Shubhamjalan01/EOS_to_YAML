@@ -1,0 +1,142 @@
+router_bgp:
+  as: '64932'
+  distance:
+    extrenal_routes: '20'
+    internal_routes: '200'
+    local_routes: '200'
+  maximum_paths:
+    ecmp: '4'
+    paths: '4'
+  neighbors:
+    1.1.1.2:
+      peer_group: IBGP-TO-LEAF-PEER
+    10.246.206.125:
+      peer_group: EBGP-TO-SPINE
+    10.246.207.125:
+      peer_group: EBGP-TO-SPINE
+  peer_groups:
+    EBGP-TO-LEAFS-SHAERED-VNI-A2ACG:
+      default-originate:
+        always: 'true'
+      local_as: '64932'
+      maximum_routes: '12000'
+      send_community: standard
+    EBGP-TO-LEAFS-SHAERED-VNI-PROJECT:
+      default-originate:
+        always: 'true'
+      local_as: '64934'
+      maximum_routes: '12000'
+      send_community: standard
+    EBGP-TO-LEAFS-SHAERED-VNI-VDI-CITRIX:
+      default-originate:
+        always: 'true'
+      local_as: '64933'
+      maximum_routes: '12000'
+      send_community: standard
+    EBGP-TO-NEXUS-A2ACG:
+      local_as: '64932'
+      maximum_routes: '12000'
+      remote_as: '64576'
+      send_community: standard
+    EBGP-TO-NEXUS-PROJECT:
+      local_as: '64934'
+      maximum_routes: '12000'
+      remote_as: '64576'
+      send_community: standard
+    EBGP-TO-NEXUS-VDI-CITRIX:
+      local_as: '64933'
+      maximum_routes: '12000'
+      remote_as: '64576'
+      send_community: standard
+    EBGP-TO-SPINE:
+      maximum_routes: '12000'
+      remote_as: '65050'
+      send_community: standard
+    IBGP-TO-DCI-LEAFS:
+      maximum_routes: '12000'
+      remote_as: '64932'
+      send_community: standard
+    IBGP-TO-LEAF-PEER:
+      maximum_routes: '12000'
+      remote_as: '64932'
+      send_community: standard
+  router_id: 10.246.208.253
+  timers: 5 15
+  update:
+    wait_for_convergence: 'true'
+    wait_install: 'true'
+  vrfs:
+    A2ACG:
+      listen_ranges:
+        peer_filter: Leaf-AS-Range
+        peer_group: EBGP-TO-LEAFS-SHAERED-VNI-A2ACG
+        prefix: 10.246.210.0/26
+      neighbors:
+        10.10.35.233:
+          local_as: '64932'
+          remote_as: '10991'
+          timers: 60 180
+        10.10.79.1:
+          peer_group: EBGP-TO-NEXUS-A2ACG
+        10.10.79.4:
+          local_as: '64932'
+          maximum_routes: '12000'
+          next_hop_self: 'true'
+          remote_as: '64932'
+          send_community: standard
+        10.10.79.58:
+          peer_group: IBGP-TO-DCI-LEAFS
+      redistribute_routes:
+      - connected
+      - static
+    ABC:
+      listen_ranges:
+        peer_filter: Leaf-AS-Range
+        peer_group: EBGP-TO-LEAFS-SHAERED-VNI-VDI-CITRIX
+        prefix: 10.246.210.64/26
+      neighbors:
+        10.10.79.17:
+          peer_group: EBGP-TO-NEXUS-VDI-CITRIX
+        10.10.79.20:
+          local_as: '64933'
+          maximum_routes: '12000'
+          next_hop_self: 'true'
+          remote_as: '64933'
+          send_community: standard
+      redistribute_routes:
+      - connected
+      - static
+    PROJECT:
+      listen_ranges:
+        peer_filter: Leaf-AS-Range
+        peer_group: EBGP-TO-LEAFS-SHAERED-VNI-PROJECT
+        prefix: 10.246.210.128/26
+      neighbors:
+        10.10.79.12:
+          local_as: '64934'
+          maximum_routes: '12000'
+          next_hop_self: 'true'
+          remote_as: '64934'
+          send_community: standard
+        10.10.79.9:
+          peer_group: EBGP-TO-NEXUS-PROJECT
+      redistribute_routes:
+      - connected
+      - static
+    VDI-CITRIX:
+      listen_ranges:
+        peer_filter: Leaf-AS-Range
+        peer_group: EBGP-TO-LEAFS-SHAERED-VNI-VDI-CITRIX
+        prefix: 10.246.210.64/26
+      neighbors:
+        10.10.79.17:
+          peer_group: EBGP-TO-NEXUS-VDI-CITRIX
+        10.10.79.20:
+          local_as: '64933'
+          maximum_routes: '12000'
+          next_hop_self: 'true'
+          remote_as: '64933'
+          send_community: standard
+      redistribute_routes:
+      - connected
+      - static

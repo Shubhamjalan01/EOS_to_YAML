@@ -1,0 +1,21 @@
+static_routes:
+- VRF: A2ACG
+  destination_address_prefix: 10.36.212.0/23
+  gateway: 10.36.200.36
+- VRF: A2ACG
+  destination_address_prefix: 10.36.8.64/26
+  gateway: 10.36.200.36
+- VRF: A2ACG
+  destination_address_prefix: 10.36.18.128/25
+  gateway: 10.36.200.36
+- VRF: A2ACG
+  destination_address_prefix: 10.36.214.0/24
+  gateway: 10.36.200.37
+- VRF: A2ACG
+  destination_address_prefix: 10.36.26.128/25
+  gateway: 10.36.200.37
+- destination_address_prefix: 10.36.128.38/32
+  gateway: 10.36.200.38
+- VRF: XYZ
+  destination_address_prefix: 10.36.0.41/32
+  gateway: 10.36.3.197

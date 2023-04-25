@@ -1,5 +1,5 @@
 vlans:
   '100':
-    name: test23
+    name: test3
   '50':
     name: test

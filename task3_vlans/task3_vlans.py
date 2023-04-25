@@ -1,6 +1,6 @@
 import yaml
 
-res = {}    
+res5 = {}    
 vlans = []  
 #iterate over every line in the input file                      
 with open ('input.txt', 'rt') as myfile: 
@@ -18,24 +18,24 @@ with open ('input.txt', 'rt') as myfile:
             temp['vlans'] = {lis[-1]: {
             }}
             
-            #update temp dictionary to res dictionary
+            #update temp dictionary to res5 dictionary
             if len(vlans)<=1:
-                #print("adding temp dictionary to res dict..")
+                #print("adding temp dictionary to res5 dict..")
                 #merge new access list to the existing access list
-                res.update(temp)
+                res5.update(temp)
             else:
-                #print("adding temp dictionary to res dict..")
-                res['vlans'].update(temp['vlans'])
-        else:
+                #print("adding temp dictionary to res5 dict..")
+                res5['vlans'].update(temp['vlans'])
+        elif 'name' in myline:
             #add values to the dictionary for different sequence numbers
-            #print("adding values for",alnames[-1],"in res dict..")
+            #print("adding values for",alnames[-1],"in res5 dict..")
             var = myline.split()
             print(var)
-            res['vlans'][vlans[-1]] =  {
+            res5['vlans'][vlans[-1]] =  {
                     'name': var[1]
                 }
    
 # write dictionary to file converting into yaml format
 with open('output.txt', mode='w') as f:
-    yaml.dump(res, f, indent=2)
+    yaml.dump(res5, f, indent=2)
 f.close()

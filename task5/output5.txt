@@ -1,0 +1,11 @@
+vlans:
+  '100':
+    name: test3
+  '50':
+    name: test
+  Vlan1001: {}
+  Vlan1002: {}
+  Vlan1003: {}
+  Vlan1639: {}
+  Vlan1640: {}
+  Vlan1641: {}

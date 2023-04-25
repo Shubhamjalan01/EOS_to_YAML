@@ -7,7 +7,7 @@ with open ('inputsr.txt', 'rt') as myfile:
     for myline in myfile:
         #create a empty temporary dict.
         temp = {}
-        if "route" in myline:
+        if "ip route" in myline:
             #Extract access list name from config
             lis = myline.split()
             print(lis)

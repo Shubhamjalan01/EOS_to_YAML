@@ -28,14 +28,18 @@ with open ('input.txt', 'rt') as myfile:
             else:
                 #print("adding temp dictionary to res dict..")
                 res['access_lists'].update(temp['access_lists'])
-        else:
+
+        elif "permit ip" in myline or "deny ip" in myline:
             #add values to the dictionary for different sequence numbers
             #print("adding values for",alnames[-1],"in res dict..")
-            var = myline.strip('\n')
-            res['access_lists'][alnames[-1]]['sequence_numbers'][myline[1:3]] =  {
-                    'action': var[4:]
+            line = myline.split()
+            print(line)
+            var = " ".join(line)
+            print(var)
+            res['access_lists'][alnames[-1]]['sequence_numbers'][var[:2]] =  {
+                    'action': var[3:]
                 }
-   
+        
 # write dictionary to file converting into yaml format
 with open('output.txt', mode='w') as f:
     yaml.dump(res, f, indent=2)

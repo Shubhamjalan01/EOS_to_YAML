@@ -1,0 +1,78 @@
+route_maps:
+  10.10.35.233:
+    sequence_numbers:
+      in:
+        Type: route-map
+        match: []
+        set: []
+      out:
+        Type: route-map
+        match: []
+        set: []
+  10.10.79.1:
+    sequence_numbers:
+      in:
+        Type: route-map
+        match: []
+        set: []
+      out:
+        Type: route-map
+        match: []
+        set: []
+  10.10.79.12:
+    sequence_numbers:
+      in:
+        Type: route-map
+        match: []
+        set: []
+  10.10.79.17:
+    sequence_numbers:
+      in:
+        Type: route-map
+        match: []
+        set: []
+      out:
+        Type: route-map
+        match: []
+        set: []
+  10.10.79.20:
+    sequence_numbers:
+      in:
+        Type: route-map
+        match: []
+  10.10.79.4:
+    sequence_numbers:
+      in:
+        Type: route-map
+        match: []
+        set: []
+  10.10.79.9:
+    sequence_numbers:
+      in:
+        Type: route-map
+        match: []
+        set: []
+      out:
+        Type: route-map
+        match: []
+        set: []
+  MAP_2:
+    sequence_numbers:
+      '10':
+        Type: permit
+        match:
+        - match as 10
+        set:
+        - set local-preference 100
+      '20':
+        Type: deny
+        match:
+        - match metric-type type-1
+        - match as 100
+        set: []
+  connected:
+    sequence_numbers:
+      RM-CONNECTED:
+        Type: route-map
+        match: []
+        set: []

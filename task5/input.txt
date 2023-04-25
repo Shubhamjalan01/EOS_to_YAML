@@ -1,0 +1,200 @@
+IP Access List test1
+ 10 permit ip 10.10.10.0/24 any
+ 20 permit ip 10.30.10.0/24 host 10.20.10.1
+ 30 deny ip host 10.10.10.1 host 10.20.10.1
+ 40 permit ip any any
+!
+IP Access List test2
+ 10 permit ip 10.10.10.0/24 any
+ 20 permit ip 10.30.10.0/24 host 10.20.10.2
+ 15 deny ip host 10.10.10.1 host 10.20.10.1
+ 30 permit ip any any
+!
+route-map MAP_2 permit 10
+    match as 10
+    set local-preference 100
+!
+route-map MAP_2 deny 20
+    match metric-type type-1
+    match as 100
+!
+ip route vrf A2ACG 10.36.212.0/23 10.36.200.36
+ip route vrf A2ACG 10.36.8.64/26 10.36.200.36
+ip route vrf A2ACG 10.36.18.128/25 10.36.200.36
+ip route vrf A2ACG 10.36.214.0/24 10.36.200.37
+ip route vrf A2ACG 10.36.26.128/25 10.36.200.37
+ip route 10.36.128.38/32 10.36.200.38
+ip route vrf XYZ 10.36.0.41/32 10.36.3.197
+!
+interface Port-Channel42
+description US-BIL-DC-PHY-CV-1 Cluster_Bridge
+switchport access vlan 1011
+mlag 40
+!
+interface Port-Channel44
+description US-BIL-DC-PHY-CV-2 Cluster_Bridge
+switchport access vlan 1011
+mlag 44
+!
+interface Port-Channel1000
+description MLAG Peer Link
+switchport mode trunk
+switchport trunk group mlag-peer
+!
+interface Port-Channel1001
+description Uplink to Spine-1
+mtu 9214
+no switchport
+ip address 10.195.57.124/31
+!
+interface Port-Channel1002
+description Uplink to Spine-2
+mtu 9214
+no switchport
+ip address 10.195.57.252/31
+!
+Vlan 50
+name test
+!
+Vlan 100
+name test3
+!
+router bgp 64932
+   router-id 10.246.208.253
+   update wait-for-convergence
+   update wait-install
+   timers bgp 5 15
+   distance bgp 20 200 200
+   maximum-paths 4 ecmp 4
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-A2ACG peer group
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-A2ACG local-as 64932 no-prepend replace-as
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-A2ACG update-source Vlan1001
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-A2ACG description EBGP-TO-LEAFS-SHARED-VNI
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-A2ACG default-originate always
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-A2ACG send-community
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-A2ACG maximum-routes 12000
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-PROJECT peer group
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-PROJECT local-as 64934 no-prepend replace-as
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-PROJECT update-source Vlan1003
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-PROJECT description EBGP-TO-LEAFS-SHARED-VNI
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-PROJECT default-originate always
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-PROJECT send-community
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-PROJECT maximum-routes 12000
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-VDI-CITRIX peer group
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-VDI-CITRIX local-as 64933 no-prepend replace-as
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-VDI-CITRIX update-source Vlan1002
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-VDI-CITRIX description EBGP-TO-LEAFS-SHARED-VNI
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-VDI-CITRIX default-originate always
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-VDI-CITRIX send-community
+   neighbor EBGP-TO-LEAFS-SHAERED-VNI-VDI-CITRIX maximum-routes 12000
+   neighbor EBGP-TO-NEXUS-A2ACG peer group
+   neighbor EBGP-TO-NEXUS-A2ACG remote-as 64576
+   neighbor EBGP-TO-NEXUS-A2ACG local-as 64932 no-prepend replace-as
+   neighbor EBGP-TO-NEXUS-A2ACG update-source Vlan1639
+   neighbor EBGP-TO-NEXUS-A2ACG description EBGP-TO-NEXUS-A2ACG
+   neighbor EBGP-TO-NEXUS-A2ACG send-community
+   neighbor EBGP-TO-NEXUS-A2ACG maximum-routes 12000
+   neighbor EBGP-TO-NEXUS-PROJECT peer group
+   neighbor EBGP-TO-NEXUS-PROJECT remote-as 64576
+   neighbor EBGP-TO-NEXUS-PROJECT local-as 64934 no-prepend replace-as
+   neighbor EBGP-TO-NEXUS-PROJECT update-source Vlan1640
+   neighbor EBGP-TO-NEXUS-PROJECT description EBGP-TO-NEXUS-PROJECT
+   neighbor EBGP-TO-NEXUS-PROJECT send-community
+   neighbor EBGP-TO-NEXUS-PROJECT maximum-routes 12000
+   neighbor EBGP-TO-NEXUS-VDI-CITRIX peer group
+   neighbor EBGP-TO-NEXUS-VDI-CITRIX remote-as 64576
+   neighbor EBGP-TO-NEXUS-VDI-CITRIX local-as 64933 no-prepend replace-as
+   neighbor EBGP-TO-NEXUS-VDI-CITRIX update-source Vlan1641
+   neighbor EBGP-TO-NEXUS-VDI-CITRIX description EBGP-TO-NEXUS-VDI-CITRIX
+   neighbor EBGP-TO-NEXUS-VDI-CITRIX send-community
+   neighbor EBGP-TO-NEXUS-VDI-CITRIX maximum-routes 12000
+   neighbor EBGP-TO-SPINE peer group
+   neighbor EBGP-TO-SPINE remote-as 65050
+   neighbor EBGP-TO-SPINE send-community
+   neighbor EBGP-TO-SPINE maximum-routes 12000
+   neighbor IBGP-TO-DCI-LEAFS peer group
+   neighbor IBGP-TO-DCI-LEAFS remote-as 64932
+   neighbor IBGP-TO-DCI-LEAFS next-hop-self
+   neighbor IBGP-TO-DCI-LEAFS send-community
+   neighbor IBGP-TO-DCI-LEAFS maximum-routes 12000
+   neighbor IBGP-TO-LEAF-PEER peer group
+   neighbor IBGP-TO-LEAF-PEER remote-as 64932
+   neighbor IBGP-TO-LEAF-PEER next-hop-self
+   neighbor IBGP-TO-LEAF-PEER send-community
+   neighbor IBGP-TO-LEAF-PEER maximum-routes 12000
+   neighbor 1.1.1.2 peer group IBGP-TO-LEAF-PEER
+   neighbor 10.246.206.125 peer group EBGP-TO-SPINE
+   neighbor 10.246.207.125 peer group EBGP-TO-SPINE
+   redistribute connected route-map RM-CONNECTED
+   !
+   vrf A2ACG
+      bgp listen range 10.246.210.0/26 peer-group EBGP-TO-LEAFS-SHAERED-VNI-A2ACG peer-filter Leaf-AS-Range
+      neighbor 10.10.35.233 remote-as 10991
+      neighbor 10.10.35.233 local-as 64932 no-prepend replace-as
+      neighbor 10.10.35.233 description **618-SLDRBDTEST-VRF**
+      neighbor 10.10.35.233 timers 60 180
+      neighbor 10.10.35.233 route-map RM-SLDRBDTEST-IN in
+      neighbor 10.10.35.233 route-map RM-SLDRBDTEST-OUT out
+      neighbor 10.10.79.1 peer group EBGP-TO-NEXUS-A2ACG
+      neighbor 10.10.79.1 route-map RM-A2ACG-LP-IN-600 in
+      neighbor 10.10.79.1 route-map RM-A2ACG-OUT out
+      neighbor 10.10.79.4 remote-as 64932
+      neighbor 10.10.79.4 next-hop-self
+      neighbor 10.10.79.4 local-as 64932 no-prepend replace-as
+      neighbor 10.10.79.4 update-source Vlan1639
+      neighbor 10.10.79.4 description iBGP-TO-MUM-B-LEAF-2
+      neighbor 10.10.79.4 route-map RM-A2ACG-LP-IN-400 in
+      neighbor 10.10.79.4 send-community
+      neighbor 10.10.79.4 maximum-routes 12000
+      neighbor 10.10.79.58 peer group IBGP-TO-DCI-LEAFS
+      redistribute connected
+      redistribute static
+   !
+   vrf PROJECT
+      bgp listen range 10.246.210.128/26 peer-group EBGP-TO-LEAFS-SHAERED-VNI-PROJECT peer-filter Leaf-AS-Range
+      neighbor 10.10.79.9 peer group EBGP-TO-NEXUS-PROJECT
+      neighbor 10.10.79.9 route-map RM-PROJECT-LP-IN-600 in
+      neighbor 10.10.79.9 route-map RM-PROJECT-OUT out
+      neighbor 10.10.79.12 remote-as 64934
+      neighbor 10.10.79.12 next-hop-self
+      neighbor 10.10.79.12 local-as 64934 no-prepend replace-as
+      neighbor 10.10.79.12 update-source Vlan1640
+      neighbor 10.10.79.12 description iBGP-TO-MUM-B-LEAF-2
+      neighbor 10.10.79.12 route-map RM-PROJECT-LP-IN-400 in
+      neighbor 10.10.79.12 send-community
+      neighbor 10.10.79.12 maximum-routes 12000
+      redistribute connected
+      redistribute static
+   !
+   vrf VDI-CITRIX
+      bgp listen range 10.246.210.64/26 peer-group EBGP-TO-LEAFS-SHAERED-VNI-VDI-CITRIX peer-filter Leaf-AS-Range
+      neighbor 10.10.79.17 peer group EBGP-TO-NEXUS-VDI-CITRIX
+      neighbor 10.10.79.17 route-map RM-VDI-CITRIX-LP-IN-600 in
+      neighbor 10.10.79.17 route-map RM-VDI-CITRIX-OUT out
+      neighbor 10.10.79.20 remote-as 64933
+      neighbor 10.10.79.20 next-hop-self
+      neighbor 10.10.79.20 local-as 64933 no-prepend replace-as
+      neighbor 10.10.79.20 update-source Vlan1641
+      neighbor 10.10.79.20 description iBGP-TO-MUM-B-LEAF-2
+      neighbor 10.10.79.20 route-map RM-VDI-CITRIX-LP-IN-400 in
+      neighbor 10.10.79.20 send-community
+      neighbor 10.10.79.20 maximum-routes 12000
+      redistribute connected
+      redistribute static
+   !
+   vrf ABC
+      bgp listen range 10.246.210.64/26 peer-group EBGP-TO-LEAFS-SHAERED-VNI-VDI-CITRIX peer-filter Leaf-AS-Range
+      neighbor 10.10.79.17 peer group EBGP-TO-NEXUS-VDI-CITRIX
+      neighbor 10.10.79.17 route-map RM-VDI-CITRIX-LP-IN-600 in
+      neighbor 10.10.79.17 route-map RM-VDI-CITRIX-OUT out
+      neighbor 10.10.79.20 remote-as 64933
+      neighbor 10.10.79.20 next-hop-self
+      neighbor 10.10.79.20 local-as 64933 no-prepend replace-as
+      neighbor 10.10.79.20 update-source Vlan1641
+      neighbor 10.10.79.20 description iBGP-TO-MUM-B-LEAF-2
+      neighbor 10.10.79.20 route-map RM-VDI-CITRIX-LP-IN-400 in
+      neighbor 10.10.79.20 send-community
+      neighbor 10.10.79.20 maximum-routes 12000
+      redistribute connected
+      redistribute static
+!
